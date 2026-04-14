@@ -1,5 +1,25 @@
 # Topic2-LinuxCommands-InternetFundamentals
 
+## Executive Summary
+
+Tài liệu này tổng hợp các kiến thức cốt lõi về quản trị hệ thống Linux và hạ tầng Internet. Mục tiêu nhằm cung cấp cho Software Engineer các kỹ năng thao tác dòng lệnh (CLI), quản lý tệp tin, cấu hình mạng, bảo mật SSL/TLS và hiểu rõ cơ chế phân giải tên miền (DNS).
+
+## Table of Contents
+
+1. Network Connectivity (Ping, Hping3, Traceroute)
+
+2. Remote Access & Data Transfer (SSH, SCP, Rsync)
+
+3. File Manipulation (Cat, Echo, Tail/Head, Sed)
+
+4. Network Statistics & Diagnostics (Netstat, Dig)
+
+5. System Administration (Chmod, Find, Mount, Ps, Top)
+
+6. Security & SSL/TLS Fundamentals
+
+7. Domain, DNS & Mail Server Infrastructure
+
 #Linux Command Line
 
 - Ping vietnix.vn và giải thích kết quả lệnh `ping` và `hping3`.
@@ -460,7 +480,6 @@
   - TXT: Dùng để chứa thông tin văn bản (xác thực SPF, xác thực sở hữu domain).
 
 - Nguyên tắc làm việc của DNS & Cách phân giải địa chỉ DNS.
-
   - Quá trình này diễn ra theo thứ tự "từ phải sang trái" và phân cấp:
     - Local Cache / Hosts file: Máy kiểm tra xem đã biết IP này chưa.
 
@@ -471,4 +490,3 @@
     - TLD Name Server: Hỏi server quản lý đuôi .vn để biết server của Vietnix ở đâu.
 
     - Authoritative Name Server: Cuối cùng hỏi trực tiếp server của Vietnix để lấy địa chỉ IP chính xác.
-
