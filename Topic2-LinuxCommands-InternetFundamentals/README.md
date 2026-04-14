@@ -60,6 +60,7 @@
     - EOF: Ghi nhiều dòng
 
 - Tail/Head Command:
+
   ![alt text](image-3.png)
   - Sự khác biệt giữa `tail` và `head`.
     - tail file.txt: xem cuối file (Mặc định 10 dòng)
@@ -150,11 +151,15 @@
   - Lọc và đếm số lượng dòng lặp lại.
     ![alt text](image-13.png)
   - (-d): Chỉ hiện dòng trùng
+
     ![alt text](image-14.png)
+
   - (-u): Chỉ hiện dòng không trùng
+
     ![alt text](image-15.png)
 
 - Wc Command:
+
   ![alt text](image-16.png)
   - Đếm số dòng: wc -l file.txt
   - Đếm số ký tự: wc -m file.txt (bao gồm khoảng trắng + xuống dòng)
