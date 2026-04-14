@@ -263,10 +263,15 @@
     - Nén: tar -czvf file.tar.gz folder/
       Option Ý nghĩa
       -c create (tạo file nén)
+
       -z gzip compression
+
       -v verbose (hiển thị quá trình)
+
       -f file name
+
     - Giải nén: tar -xzvf file.tar.gz
+
       Option Ý nghĩa
 
       -x extract (giải nén)
@@ -282,33 +287,78 @@
     - Nén folder: zip -r folder.zip folder/
     - Giải nén: unzip file.zip
 
-- Mount/Umount Command:
-  - Thêm ổ cứng `sdb` ~ 5gb.
-  - Kiểm tra số lượng ổ cứng.
-  - Mount vào `/mnt/test`.
-  - Umount `/mnt/test`.
+- Mount/Umount Command: Linux không tự phát hiện ổ cứng -> phải tự gắn (mount) nó vào một 1 thư mục để dùng
+
+![alt text](image-25.png)
+
+- Lệnh lsblk: hiển thị cấu trúc cây của các thiết bị điện tử
+- Thêm ổ cứng `sdb` ~ 5gb.
+  - Kiểm tra đã có ổ chưa: lsblk
+  - Format ổ đĩa: sudo mkfs.ext4 /dev/sdb
+  - Tạo thư mục sudo mkdir -p /mnt/test
+  - Mount ổ đĩa: sudo mount /dev/sdb /mnt/test
+  - Kiểm tra: df -h
+
+- Kiểm tra số lượng ổ cứng.
+  - Kiểm tra bằng dh -h
+
+- Mount vào `/mnt/test`.
+  - Tạo thư mục Mount Point: sudo mkdir -p /mnt/test
+  - Thực hiện mount: sudo mount /dev/sdb1 /mnt/test
+- Umount `/mnt/test`.
+  - Khi không cần sử dụng hoặc muốn rút ổ cứng an toàn, ta phải thực hiện gỡ điểm gắn kết.
+  - Lệnh: sudo umount /mnt/test hoặc sudo umount /dev/sdb1
+  - Lưu ý quan trọng: Không được thực hiện lệnh này khi đang đứng bên trong thư mục /mnt/test hoặc có ứng dụng nào đó đang mở file trong thư mục này (lỗi target is busy)
 
 - Symbolic Links, Hard Links Command:
   - Định nghĩa Sym Link.
+
+  ![alt text](image-26.png)
+  - Symbolic Link là shortcut trở tới file hoặc folder khác
+  - ln -s file.txt link.txt
+  - cat link.txt -> ouput: giông với cat file.txt
+  - Đặc điểm: có thể bị broken nếu file gốc bị xóa
+
   - Định nghĩa Hard Link.
-  - Ví dụ về Sym Link và Hard Link.
+
+  ![alt text](image-27.png)
+  - Hard Link là một tên khác của cùng một file thật (cùng inode)
+  - Không bị mất khi file gốc xóa
+  - Nó là tạo 2 tên mới cho cùng 1 node, nếu xóa chỉ xóa tên còn địa chỉ vẫn còn nguyên nên file vẫn còn
+  - Không dùng cho folder, không cross filesystem(khác ổ đĩa)
 
 - Ls Command:
-  - Liệt kê file/thư mục.
-  - Liệt kê file/thư mục và thuộc tính.
-  - Show file ẩn.
+
+  ![alt text](image-28.png)
+  - Liệt kê file/thư mục.: ls
+  - Liệt kê file/thư mục và thuộc tính: ls -l
+  - Show file ẩn: ls -a
+  - Sắp xếp theo thời gian: ls -lt
 
 - Ps Command:
-  - Show tiến trình.
-  - Kill tiến trình.
+  - Show tiến trình: ps
+  - Xem toàn bộ hệ thống: ps aux
+  - Kill tiến trình: kill -9 1234 (ép tất ngay lập tức)
 
 - Top Command:
-  - Kiểm tra tài nguyên CPU.
+
+  ![alt text](image-29.png)
+  - Kiểm tra tài nguyên CPU: top, htop
   - Giải thích các thông số.
+    - PID: ID Process
+    - USER: user chạy process
+    - %CPU: dùng CPU
+    - %MEM: dùng ram
+    - COMMAND: app
 
 - Free Command:
-  - Giải thích các thông số về RAM.
+  - Giải thích các thông số về RAM:
+    - total: tổng ram
+    - used: đã dùng
+    - free: trống
+    - available: có thể dùng thêm
 
 - Df Command:
-  - Xem dung lượng disk.
-  - Phân vùng `/` là gì.
+  - Xem dung lượng disk: df -h
+  - Phân vùng `/` là gì:
+    - Phân vùng gốc của hệ điều hành Linux
