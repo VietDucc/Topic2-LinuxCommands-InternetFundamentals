@@ -350,3 +350,77 @@ mysql -h 221.132.21.144 -u root -p
 - Kết quả khi remote vào mysql:
 
 ![alt text](image-14.png)
+
+8. Cài đặt PHPMySQLAdmin
+
+```bash
+sudo nano /etc/nginx/sites-available/phpmyadmin_ip
+
+server {
+    listen 80;
+    server_name 221.132.21.144; # Điền IP VPS của bạn vào đây
+
+    root /var/www/html;
+    index index.php index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    # Cấu hình xử lý PHP
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php8.1-fpm.sock;
+    }
+
+    # Bảo mật: Không cho phép xem các file ẩn .ht
+    location ~ /\.ht {
+        deny all;
+    }
+}
+
+
+sudo mkdir -p /var/www/html
+
+sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
+
+# Kích hoạt site mới
+sudo ln -s /etc/nginx/sites-available/phpmyadmin_ip /etc/nginx/sites-enabled/
+
+sudo nginx -t
+sudo systemctl reload nginx
+
+
+sudo chmod -R 755 /usr/share/phpmyadmin
+sudo chown -R www-data:www-data /usr/share/phpmyadmin
+```
+
+pass MyPHPAdmin :Admin234.
+user: root
+
+9. 1 path ở web wp.vietduc.vietnix.tech làm sao khi truy cập vào wp.vietduc.vietnix.tech/api/ hiển thị ra 1 file có nội dung bất kì
+
+```bash
+# Tạo file và nội dung cho API
+# Tạo thư mục api nằm trong thư mục web của WordPress
+sudo mkdir -p /var/www/wp.vietduc.vietnix.tech/api
+
+# Tạo một file index.html với nội dung bất kỳ
+echo "Data on API" | sudo tee /var/www/wp.vietduc.vietnix.tech/api/index.html
+
+
+# Cau hinh nginx de nhan dien path
+sudo nano /etc/nginx/sites-available/wp.vietduc.vietnix.tech
+
+# Them doan nay vao
+# Cấu hình riêng cho đường dẫn /api/
+    location /api/ {
+        alias /var/www/wp.vietduc.vietnix.tech/api/;
+        index index.html;
+        try_files $uri $uri/ =404;
+    }
+
+# Kiem tra
+sudo nginx -t
+sudo systemctl reload nginx
+```
